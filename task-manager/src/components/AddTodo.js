@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 
@@ -28,14 +27,6 @@ export class AddTodo extends Component {
                     value={this.state.title}
                     onChange={this.onChange}
                 />
-                {/* <input 
-                    type='text' 
-                    name='title' 
-                    placeholder="Add todo.." 
-                    style={{flex: '10', padding: '5px'}}
-                    value={this.state.title}
-                    onChange={this.onChange}
-                /> */}
                 <Button 
                     type='submit'
                     variant="contained" 
@@ -45,11 +36,6 @@ export class AddTodo extends Component {
             </form>
         )
     }
-}
-
-//PropTypes
-AddTodo.propTypes = {
-    addTodo: PropTypes.func.isRequired
 }
 
 export default AddTodo

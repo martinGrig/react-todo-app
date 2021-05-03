@@ -1,22 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import TodoItem from './TodoItem';
-import PropTypes from 'prop-types';
+import { GlobalState} from '../GlobalStateContextHook';
+import axios from 'axios'
 
-class Todos extends Component {
+const useGlobalState = () => React.useContext(GlobalState);
 
-
-  render() {
-    return this.props.todos.map((todo) =>(
-        <TodoItem key={todo.id} todo={todo} markComplete = {this.props.markComplete}
-        delTodo = {this.props.delTodo}/>
-    ));
+const Todos = () => {
+  const {todos} = useGlobalState();
+  const markComplete = (id) =>{
+    GlobalState.set({todos: todos.map(todo =>{
+      if(todo.id === id)
+      {
+          todo.completed = !todo.completed
+      }
+      return todo;
+    })})
   }
-}
-//PropTypes
-Todos.propTypes = {
-    todos: PropTypes.array.isRequired,
-    markComplete: PropTypes.func.isRequired,
-    delTodo: PropTypes.func.isRequired
-}
+  //Delete Todo
+  const delTodo = (id) =>{
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(res => GlobalState.set({todos: [...todos.filter(todo => todo.id !== id)]}));
+    GlobalState.set({todos: [...todos.filter(todo => todo.id !== id)]});
+  }
 
+  return todos.map((todo) =>(
+    <TodoItem 
+      key={todo.id} 
+      todo={todo} 
+      markComplete = {markComplete}
+      delTodo = {delTodo}
+    />
+));
+}
 export default Todos;
