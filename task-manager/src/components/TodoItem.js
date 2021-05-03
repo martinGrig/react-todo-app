@@ -9,7 +9,8 @@ export class TodoItem extends Component {
         return{
             backgroundColor: '#f4f4f4',
             padding: '10px',
-            borderBottom: '1px #ccc dotted',
+            margin: '10px',
+            borderBottom: '1px #ccc solid',
             textDecoration: this.props.todo.completed ? 'line-through': 'none',
             textAlign: 'left'
         }
@@ -46,7 +47,7 @@ export class TodoItem extends Component {
 }
 
 const itemStyle = {
-    marginRight: '5rem'
+    marginRight: '10rem'
 }
 
 const btnStyle = {
@@ -54,6 +55,7 @@ const btnStyle = {
     border: 'none',
     cursor: 'pointer',
     float: 'right',
+    // marginLeft: '5rem',
     "@media (maxWidth: 469px)": {
         float: '',
     }
